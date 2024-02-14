@@ -29,12 +29,31 @@
         per login form;
     -->
 
-    <div>
+    <div id="login-form">
         <label for="email">email:</label><br>
         <input type="text" id="email" name="fname" value="John"><br>
         <label for="password">password:</label><br>
         <input type="text" id="password" name="lname" value="Doe"><br><br>
         <button type="button" id="button" value="Submit">Log in</button>
+        <div id="error-message" style="display:none">
+            <p>Something went wrong</p>
+        </div>
+    </div>
+
+    <div id="dashboard" style="display:block;">
+        <h3>Dashboard</h3>
+
+        <input type="text" placeholder="search products" id="search-input" />
+
+        <div id="search-list">
+            <!-- populated by JS -->
+        </div>
+
+        <hr/>
+        <h3>Selected products</h3>
+        <div id="selected-product">
+            <!-- populated by JS -->
+        </div>
     </div>
     <script src="./js/index.js"></script>
 </body>

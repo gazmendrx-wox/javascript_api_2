@@ -28,10 +28,13 @@ document.addEventListener("DOMContentLoaded", function(){
 
             //if found - hide login form - show dashbaord
             if(user) {
-                //
+                document.getElementById('login-form').style.display = "none";
+                document.getElementById('dashboard').style.display = "block";
+                return
             }
 
             //if not found - show error message
+            document.getElementById('error-message').style.display = "block";
         });
     }
 
@@ -46,6 +49,33 @@ document.addEventListener("DOMContentLoaded", function(){
         const password = document.getElementById('password').value
 
         handleLoginForm(email, password);
+    })
+
+    document.getElementById('search-input').addEventListener('keypress', function(e){
+        const q = e.target.value;
+
+        document.getElementById('search-list').innerHTML = "";
+        fetch(`https://dummyjson.com/products/search?q=${q}`)
+        .then(res => res.json())
+        .then((data) => {
+            const products = data.products
+            
+            for(const product of products) {
+                const div = document.createElement('div');
+                    const p = document.createElement('p');
+                        p.innerHTML = `${product.title} - $${product.price}`;
+                div.append(p);
+                document.getElementById('search-list').append(div);
+
+                div.addEventListener('click', function(){
+                    const selectedDiv = document.createElement('div');
+                    const selectedP = document.createElement('p');
+                        selectedP.innerHTML = `${product.title} - $${product.price}`;
+                    selectedDiv.append(selectedP);
+                    document.getElementById('selected-product').append(selectedDiv);
+                })
+            }
+        });
     })
 
 })
