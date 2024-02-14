@@ -51,8 +51,13 @@ document.addEventListener("DOMContentLoaded", function(){
         handleLoginForm(email, password);
     })
 
-    document.getElementById('search-input').addEventListener('keypress', function(e){
+    document.getElementById('search-input').addEventListener('input', function(e){
         const q = e.target.value;
+
+        if(q === '') {
+            document.getElementById('search-list').innerHTML = "";
+            return
+        }
 
         document.getElementById('search-list').innerHTML = "";
         fetch(`https://dummyjson.com/products/search?q=${q}`)
@@ -72,10 +77,14 @@ document.addEventListener("DOMContentLoaded", function(){
                     const selectedP = document.createElement('p');
                         selectedP.innerHTML = `${product.title} - $${product.price}`;
                     selectedDiv.append(selectedP);
-                    document.getElementById('selected-product').append(selectedDiv);
+                    document.getElementById('selected-product').append(div);
                 })
             }
         });
     })
+
+    //Kerkesa eshte nje eventListener per buttonin logout, i cili ndrron
+    //style te login-form, edhe dashboard prej none ne block ose prej block ne none;
+    
 
 })
